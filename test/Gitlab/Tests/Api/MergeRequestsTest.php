@@ -146,6 +146,23 @@ class MergeRequestsTest extends TestCase
     /**
      * @test
      */
+    public function shouldGetMergeRequestNote()
+    {
+        $expectedArray = array('id' => 1, 'body' => 'A comment');
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('get')
+            ->with('projects/1/merge_requests/2/notes/3')
+            ->will($this->returnValue($expectedArray))
+        ;
+
+        $this->assertEquals($expectedArray, $api->showNote(1, 2, 3));
+    }
+
+    /**
+     * @test
+     */
     public function shouldGetMergeRequestNotes()
     {
         $expectedArray = array(
