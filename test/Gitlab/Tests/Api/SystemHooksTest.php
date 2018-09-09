@@ -42,6 +42,23 @@ class SystemHooksTest extends TestCase
     /**
      * @test
      */
+    public function shouldCreateHookWithParams()
+    {
+        $expectedArray = array('id' => 3, 'url' => 'http://www.example.net', 'merge_requests_events' => true);
+
+        $api = $this->getApiMock();
+        $api->expects($this->once())
+            ->method('post')
+            ->with('hooks', array('url' => 'http://www.example.net', 'merge_requests_events' => true))
+            ->will($this->returnValue($expectedArray))
+        ;
+
+        $this->assertEquals($expectedArray, $api->create('http://www.example.net', ['merge_requests_events' => true]));
+    }
+
+    /**
+     * @test
+     */
     public function shouldTestHook()
     {
         $expectedBool = true;

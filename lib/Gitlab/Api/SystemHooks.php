@@ -14,11 +14,10 @@ class SystemHooks extends AbstractApi
      * @param string $url
      * @return mixed
      */
-    public function create($url)
+    public function create($url, $options = array())
     {
-        return $this->post('hooks', array(
-            'url' => $url
-        ));
+        $options['url'] = $url;
+        return $this->post('hooks', $options);
     }
 
     /**
